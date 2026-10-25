@@ -1,0 +1,40 @@
+PDF -> DOCX (Programmifree)
+Copyright (C) 2026 Programmifree
+
+Questo programma è software libero, distribuito sotto la GNU Affero General
+Public License, versione 3 o successiva (AGPL-3.0-or-later). Vedi LICENSE.txt
+per il testo completo della licenza.
+
+Il codice sorgente è disponibile su GitHub:
+https://github.com/Programmifree
+
+---
+
+Componenti di terze parti inclusi o utilizzati dal browser durante la conversione:
+
+1. PyMuPDF
+   Copyright (C) Artifex Software, Inc.
+   Licenza: GNU Affero General Public License v3.0
+   https://pymupdf.readthedocs.io/
+
+2. pdf2docx
+   Copyright (C) Artifex Software, Inc.
+   Licenza: GNU Affero General Public License v3.0
+   https://github.com/dothinking/pdf2docx
+
+3. @bentopdf/pymupdf-wasm
+   Copyright (C) BentoPDF (Alam)
+   Wrapper TypeScript che esegue PyMuPDF e pdf2docx su Pyodide nel browser.
+   Licenza: GNU Affero General Public License v3.0
+   https://github.com/alam00000/bentopdf-pymupdf-wasm
+   Il codice sorgente completo (build scripts e configurazione) è incluso
+   nel pacchetto e disponibile nel repository indicato.
+
+4. Pyodide (runtime Python per WebAssembly)
+   Copyright (C) Mozilla Foundation / Michael Droettboom e collaboratori
+   Licenza: Mozilla Public License 2.0 (MPL-2.0)
+   https://pyodide.org/
+
+Le versioni binarie distribuite nella cartella deploy/ (runtime Pyodide e
+wheel Python) derivano dai progetti sopra citati; i rispettivi codici sorgente
+sono disponibili nei repository ufficiali indicati.

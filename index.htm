@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Converti PDF in DOCX direttamente nel browser, senza caricare i documenti su nessun server.">
+  <title>PDF → DOCX · Convertitore offline nel browser</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b3402a'/%3E%3Cpath d='M8 10h10a4 4 0 0 1 0 8H8z' fill='%23fffdf8'/%3E%3Cpath d='M8 20h16v3H8z' fill='%23fffdf8' opacity='.55'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>PDF <span class="arrow">→</span> DOCX</h1>
+    <p class="tagline">Converti i tuoi PDF in Word direttamente nel browser.</p>
+
+    <!-- Garanzie principali, a colpo d'occhio -->
+    <p class="trust-row" aria-label="Garanzie dello strumento">
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6z"/></svg>
+        Nessun upload
+      </span>
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3 12 12"/></svg>
+        Funziona offline
+      </span>
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+        Software libero
+      </span>
+    </p>
+  </header>
+
+  <main>
+    <!-- Nota privacy richiesta: i documenti restano sul dispositivo -->
+    <p class="privacy-note">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <span>I documenti <strong>non lasciano il tuo dispositivo</strong>: tutta l'elaborazione avviene in locale, nel tuo browser.</span>
+    </p>
+
+    <!-- Area di rilascio / selezione file -->
+    <section id="dropzone" class="dropzone" aria-label="Trascina qui i file PDF o clicca per selezionarli" tabindex="0" role="button">
+      <svg class="dropzone-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/>
+        <path d="M14 2v5h5"/>
+        <path d="M12 18v-6"/>
+        <path d="m9 15 3 3 3-3"/>
+      </svg>
+      <p class="dropzone-title">Trascina qui uno o più PDF</p>
+      <p class="dropzone-hint">oppure <kbd>clicca</kbd> per selezionarli dal computer</p>
+    </section>
+    <input type="file" id="file-input" accept=".pdf,application/pdf" multiple hidden>
+
+    <!-- Messaggio mostrato durante il primo download del motore di conversione -->
+    <p id="engine-message" class="engine-message" hidden>
+      Download del motore di conversione (solo la prima volta); poi funziona anche offline.
+    </p>
+
+    <!-- Avviso sui limiti della conversione -->
+    <p class="warning" role="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <span>La conversione può alterare l'impaginazione. Conserva l'originale e controlla il risultato.</span>
+    </p>
+
+    <!-- Lista dei file in coda -->
+    <ul id="file-list" class="file-list" aria-live="polite"></ul>
+  </main>
+
+  <footer class="site-footer">
+    <p class="foot-links">
+      <a href="https://www.programmifree.com" target="_blank" rel="noopener noreferrer">Programmifree.com</a>
+      <span class="foot-sep">·</span>
+      <a href="https://github.com/Programmifree" target="_blank" rel="noopener noreferrer">Codice sorgente (AGPL-3.0)</a>
+      <span class="foot-sep">·</span>
+      <a class="foot-don" href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=WCQB78C878C5U&ssrt=1760088356359" target="_blank" rel="noopener noreferrer">Sostieni il progetto <span class="heart">♥</span></a>
+    </p>
+    <p class="foot-note">Software libero, senza tracciamento.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
