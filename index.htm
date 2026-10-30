@@ -28,6 +28,12 @@
         Software libero
       </span>
     </p>
+
+    <!-- Apre la finestra modale con spiegazione e caratteristiche -->
+    <button type="button" id="btn-info" class="btn-info" aria-haspopup="dialog">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      Come funziona
+    </button>
   </header>
 
   <main>
@@ -61,6 +67,22 @@
       <span>La conversione può alterare l'impaginazione. Conserva l'originale e controlla il risultato.</span>
     </p>
 
+    <!-- Come funziona, in tre passi -->
+    <section class="how" aria-label="Come funziona">
+      <div class="how-step">
+        <span class="how-num">1</span>
+        <p><strong>Trascina i PDF</strong> nella finestra qui sopra.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-num">2</span>
+        <p>La conversione avviene <strong>nel tuo browser</strong>, uno alla volta.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-num">3</span>
+        <p><strong>Scarica i DOCX</strong> generati, senza attese online.</p>
+      </div>
+    </section>
+
     <!-- Lista dei file in coda -->
     <ul id="file-list" class="file-list" aria-live="polite"></ul>
   </main>
@@ -69,12 +91,36 @@
     <p class="foot-links">
       <a href="https://www.programmifree.com" target="_blank" rel="noopener noreferrer">Programmifree.com</a>
       <span class="foot-sep">·</span>
-      <a href="https://github.com/Programmifree" target="_blank" rel="noopener noreferrer">Codice sorgente (AGPL-3.0)</a>
+      <a href="https://github.com/Programmifree/pdfdocx/" target="_blank" rel="noopener noreferrer">Codice sorgente (AGPL-3.0)</a>
       <span class="foot-sep">·</span>
       <a class="foot-don" href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=WCQB78C878C5U&ssrt=1760088356359" target="_blank" rel="noopener noreferrer">Sostieni il progetto <span class="heart">♥</span></a>
     </p>
     <p class="foot-note">Software libero, senza tracciamento.</p>
   </footer>
+
+  <!-- Finestra modale: come funziona, caratteristiche e limiti -->
+  <dialog id="info-dialog" class="info-dialog" aria-labelledby="info-title">
+    <div class="info-head">
+      <h2 id="info-title">Come funziona</h2>
+      <button type="button" id="info-close" class="info-close" aria-label="Chiudi">&times;</button>
+    </div>
+    <p>
+      La conversione avviene <strong>interamente nel tuo browser</strong>: il motore
+      (PyMuPDF e pdf2docx, eseguiti via WebAssembly) viene scaricato una sola volta e
+      resta in cache; dalle visite successive l'app funziona anche offline.
+    </p>
+    <ul>
+      <li><strong>Nessun upload</strong> — i documenti non lasciano mai il tuo dispositivo.</li>
+      <li><strong>Coda ordinata</strong> — i file vengono convertiti uno alla volta, con stato e pulsante di download per ciascuno.</li>
+      <li><strong>Gratuito e libero</strong> — codice sorgente AGPL-3.0 su GitHub.</li>
+    </ul>
+    <h2>Limiti</h2>
+    <ul>
+      <li>I PDF protetti da password non sono supportati.</li>
+      <li>I PDF scansionati (solo immagini) richiederebbero l'OCR, non incluso.</li>
+      <li>L'impaginazione del DOCX può differire dall'originale: controlla sempre il risultato.</li>
+    </ul>
+  </dialog>
 
   <script type="module" src="js/app.js"></script>
 </body>

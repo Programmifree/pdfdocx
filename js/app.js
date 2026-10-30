@@ -172,6 +172,21 @@ dropzone.addEventListener('drop', (e) => {
 window.addEventListener('dragover', (e) => e.preventDefault());
 window.addEventListener('drop', (e) => e.preventDefault());
 
+// --- Finestra modale "Come funziona" -------------------------------------------
+
+const infoDialog = document.getElementById('info-dialog');
+const btnInfo = document.getElementById('btn-info');
+
+if (btnInfo && infoDialog) {
+  btnInfo.addEventListener('click', () => infoDialog.showModal());
+  document.getElementById('info-close')
+    ?.addEventListener('click', () => infoDialog.close());
+  // Chiude anche cliccando sul velo scuro fuori dalla finestra.
+  infoDialog.addEventListener('click', (e) => {
+    if (e.target === infoDialog) infoDialog.close();
+  });
+}
+
 // --- Service Worker -----------------------------------------------------------
 // Il Service Worker funziona solo in contesti sicuri: HTTPS o localhost.
 

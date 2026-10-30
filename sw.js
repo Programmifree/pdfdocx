@@ -4,7 +4,7 @@
 //   così le visite successive e l'uso offline partono subito.
 // - Aggiunge gli header COOP/COEP necessari per SharedArrayBuffer e Pyodide.
 
-const VERSION = 'v12';
+const VERSION = 'v14';
 const SHELL_CACHE = `pdf2docx-shell-${VERSION}`;
 const RUNTIME_CACHE = `pdf2docx-runtime-${VERSION}`;
 

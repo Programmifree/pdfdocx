@@ -172,7 +172,13 @@ main {
   border-radius: 16px;
   background: var(--sheet);
   cursor: pointer;
-  box-shadow: var(--shadow-md);
+  /* effetto "fogli impilati": due lamine spostate sotto il foglio */
+  box-shadow:
+    var(--shadow-sm),
+    5px 5px 0 -1px var(--sheet),
+    6px 6px 0 0 var(--line),
+    10px 10px 0 -1px var(--sheet),
+    11px 11px 0 0 var(--line);
   transition: transform 0.18s ease, border-color 0.18s ease,
               background-color 0.18s ease, box-shadow 0.18s ease;
   animation: rise 0.6s 0.1s ease both;
@@ -183,36 +189,27 @@ main {
 .dropzone::after {
   content: '';
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
   pointer-events: none;
-  opacity: 0.45;
-  transition: opacity 0.18s ease;
+  background:
+    linear-gradient(135deg, transparent 49%, var(--line) 50%, var(--line) 58%, transparent 59%);
+  background-size: 13px 13px;
+  background-repeat: no-repeat;
 }
-.dropzone::before {
-  top: 10px; left: 10px;
-  border-top: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-  border-radius: 3px 0 0 0;
-}
-.dropzone::after {
-  bottom: 10px; right: 10px;
-  border-bottom: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-  border-radius: 0 0 3px 0;
-}
-.dropzone:hover::before,
-.dropzone:hover::after,
-.dropzone:focus-visible::before,
-.dropzone:focus-visible::after,
-.dropzone.is-dragover::before,
-.dropzone.is-dragover::after { opacity: 1; }
+.dropzone::before { top: 8px; left: 8px; }
+.dropzone::after { bottom: 8px; right: 8px; transform: rotate(180deg); }
 
 .dropzone:hover,
 .dropzone:focus-visible {
   border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md), 0 0 0 4px var(--accent-wash);
+  transform: translate(-2px, -2px);
+  box-shadow:
+    var(--shadow-sm),
+    7px 7px 0 -1px var(--sheet),
+    8px 8px 0 0 var(--accent),
+    13px 13px 0 -1px var(--sheet),
+    14px 14px 0 0 var(--line);
   outline: none;
 }
 
@@ -220,6 +217,12 @@ main {
   border-color: var(--accent);
   background: var(--accent-wash);
   transform: scale(1.012);
+  animation: dash-march 0.6s linear infinite;
+}
+
+/* bordo tratteggiato "che marcia" durante il trascinamento */
+@keyframes dash-march {
+  to { outline: 2px dashed var(--accent); outline-offset: -8px; }
 }
 
 .dropzone-icon {
@@ -308,6 +311,48 @@ main {
 
 .warning svg { flex-shrink: 0; margin-top: 0.1rem; }
 
+/* --- Come funziona (tre passi) --------------------------------------------- */
+
+.how {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 1.1rem;
+  animation: rise 0.6s 0.2s ease both;
+}
+
+.how-step {
+  position: relative;
+  padding: 0.8rem 0.9rem 0.8rem 2.4rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+}
+
+.how-step p { margin: 0; }
+.how-step strong { color: var(--ink); font-weight: 600; }
+
+.how-num {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.85rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--sheet);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .how { grid-template-columns: 1fr; }
+}
+
 /* --- Lista file ------------------------------------------------------------ */
 
 .file-list {
@@ -359,27 +404,31 @@ main {
 
 .file-status {
   flex-shrink: 0;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
   color: var(--ink-soft);
+  background: color-mix(in srgb, var(--ink-soft) 10%, transparent);
 }
 
 .file-status.st-pending::before {
   content: '○ ';
-  color: var(--ink-soft);
 }
 
 .file-status.st-converting {
   color: var(--accent);
-  font-weight: 600;
+  background: var(--accent-wash);
 }
 
 .file-status.st-converting::before {
   content: '';
   display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
-  margin-right: 0.35em;
-  vertical-align: -0.02em;
+  width: 0.65em;
+  height: 0.65em;
+  margin-right: 0.4em;
+  vertical-align: 0.02em;
   border: 2px solid var(--accent);
   border-top-color: transparent;
   border-radius: 50%;
@@ -390,14 +439,16 @@ main {
 
 .file-status.st-done {
   color: var(--ok);
-  font-weight: 600;
+  background: var(--ok-wash);
 }
 
 .file-status.st-done::before { content: '✓ '; }
 
 .file-status.st-error {
   color: var(--err);
-  font-weight: 600;
+  background: var(--err-wash);
+  border-radius: 10px;   /* il messaggio d'errore può essere lungo */
+  max-width: 22rem;
 }
 
 .file-status.st-error::before { content: '✕ '; }
@@ -465,6 +516,73 @@ main {
 /* il cuore del link donazioni */
 .foot-don { font-weight: 600; }
 .foot-don .heart { color: var(--accent); }
+
+/* --- Pulsante e finestra "Come funziona" ------------------------------------- */
+
+.btn-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.9rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.btn-info:hover,
+.btn-info:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+
+.info-dialog {
+  width: min(30rem, calc(100% - 2rem));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem 1.5rem;
+  background: var(--sheet);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
+  font-size: 0.9rem;
+}
+.info-dialog::backdrop {
+  background: rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(2px);
+}
+.info-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+.info-head h2 {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+}
+.info-dialog h2:not(.info-head h2) { font-size: 1rem; margin: 1.1rem 0 0.4rem; }
+.info-dialog p { margin: 0 0 0.6rem; color: var(--ink-soft); }
+.info-dialog ul { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); }
+.info-dialog li { margin: 0.3rem 0; }
+.info-dialog strong { color: var(--ink); }
+
+.info-close {
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.info-close:hover { background: var(--accent-wash); color: var(--accent); }
 
 /* --- Animazione d'ingresso --------------------------------------------------- */
 
